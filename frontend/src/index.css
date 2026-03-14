@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    @apply bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-thumb { @apply bg-gray-300 dark:bg-gray-600 rounded-full; }
+  ::-webkit-scrollbar-track  { @apply bg-gray-100 dark:bg-gray-800; }
+}
+
+@layer components {
+  .hero-bg {
+    background-image:
+      linear-gradient(135deg, rgba(0,0,0,0.55) 0%, rgba(30,92,20,0.45) 100%),
+      url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=1920&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+  .glass-card {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.15);
+    @apply rounded-3xl;
+  }
+  .chat-bubble-bot {
+    background: linear-gradient(135deg, #2d7a1f, #4a9e38);
+    @apply text-white rounded-[18px] rounded-bl-[4px] px-4 py-3 max-w-[85%] text-sm shadow-sm;
+    animation: floatIn 0.3s ease;
+  }
+  .chat-bubble-bot-offline {
+    background: linear-gradient(135deg, #92400e, #b45309);
+    @apply text-white rounded-[18px] rounded-bl-[4px] px-4 py-3 max-w-[85%] text-sm shadow-sm;
+    animation: floatIn 0.3s ease;
+  }
+  .chat-bubble-user {
+    background: #e8f5e9;
+    color: #1b5e20;
+    border-radius: 18px;
+    border-bottom-right-radius: 4px;
+    padding: 10px 16px;
+    max-width: 80%;
+    font-size: 0.875rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    animation: floatIn 0.3s ease;
+  }
+  .loading-dot {
+    @apply w-1.5 h-1.5 bg-white/70 rounded-full inline-block;
+    animation: pulse 1s ease infinite;
+  }
+  /* Smooth dark mode transitions on all sections */
+  section {
+    transition: background-color 0.3s ease;
+  }
+}
+
+@layer utilities {
+  @keyframes floatIn {
+    from { opacity: 0; transform: scale(0.95) translateY(10px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .animate-float-in   { animation: floatIn 0.35s ease forwards; }
+  .animate-fade-up    { animation: fadeUp 0.7s ease forwards; }
+  .animate-fade-up-d1 { animation: fadeUp 0.7s ease 0.3s forwards; opacity: 0; }
+  .animate-fade-up-d2 { animation: fadeUp 0.7s ease 0.6s forwards; opacity: 0; }
+  .animate-slide-down { animation: slideDown 0.3s ease forwards; }
+  /* Hide scrollbar but allow scroll */
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  /* Line clamp */
+  .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+}
