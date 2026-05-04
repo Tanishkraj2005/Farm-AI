@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState,useRef,useEffect } from 'react'
 import './Navbar.css'
 
 const PRIMARY = [
@@ -21,11 +21,37 @@ const SECONDARY = [
 
 
 const Navbar = () => {
+  const [activePage, setActivePage] = React.useState("home");
+  const [moreOpen,setMoreOpen] = useState(false);
+  const [darkMode,setDarkMode] = useState('false');
+  const dropdownRef = useRef(null);
+
+  // const displayFarmerName = profile?.name?.split(' ')[0] || user?.displayName?.split(' ')[0] || 'Profile';
+  const nav = (page) => {
+    setActivePage(page);
+    setMoreOpen(false);
+  };
+  const isSecondaryActive = SECONDARY.some(p => p.id === activePage);
+  
+  React.useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setMoreOpen(false);
+      }
+  };
+
+  document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+
   return (
     <div className='navbar-container'>
         <nav className='navbar'>
             <div className='logo'>
-                Farm AI
+                <button onClick={()=>nav('home')}>
+                  🌾 Farm AI
+                </button>
             </div>
             {/* DESKTOP NAV */}
             <div className='nav-links'>
@@ -33,24 +59,45 @@ const Navbar = () => {
                     <button
                     key={p.id}
                     onClick={()=>nav(p.id)}
-                    className={`nav-btn${activePage===p.id ? "active":""}`}
+                    className={`nav-btn${activePage===p.id ? "active": ""}`}
                     >
                     {p.icon}{p.label}
                     </button>
                 ))}
 
-            </div>
-            <div>
+                <div className="dropdown" ref={dropdownRef}>
+                  <button onClick={() => setMoreOpen(!moreOpen)}
+                    className={`nav-btn ${isSecondaryActive ? 'active' : ''}`}>
+                    More ▼
+                  </button>
 
-            </div>
-            <div>
+                  <div className={`dropdown-menu ${moreOpen ? 'show': ''}`}>
+                    {SECONDARY.map(p=>(
+                      <button key={p.id} onClick={()=>nav(p.id)}
+                       className={`dropdown-item ${activePage===p.id ? 'active': ''}`}>
+                        {p.icon} {p.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
 
-            </div>
-            <div>
+                <div className='nav-action'>
+                    <button onClick={()=>setDarkMode(!darkMode)} className='icon-btn'>
+                      {darkMode ? '☀️' : '🌙'}
+                    </button>
 
-            </div>
-            <div>
-                
+                    <button onClick={()=>nav('profile')} className='profile-btn'>
+                      🧑‍🌾 Profile
+                    </button>
+
+                    <button >
+
+                    </button>
+
+                    <button>
+
+                    </button>
+                </div>
             </div>
         </nav>
     </div>

@@ -36,3 +36,79 @@
   cursor: pointer;
   font-weight: 600;
 }
+.nav-btn:hover {
+  color: green;
+}
+
+.nav-btn.active {
+  background: linear-gradient(to right, #16a34a, #10b981);
+  color: white;
+}
+
+/* Dropdown */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 45px;
+  left: 0;
+  background: white;
+  border-radius: 15px;
+  padding: 10px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  width: 200px;
+  display: none;
+}
+
+.dropdown-item {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background: #f0fdf4;
+  color: green;
+}
+.dropdown-menu.show{
+  display: block;
+}
+.nav-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* Icons */
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: #f1f5f9;
+}
+
+/* Profile */
+.profile-btn {
+  padding: 8px 12px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  background: #f1f5f9;
+  font-weight: bold;
+}
+
+/* Logout */
+.logout-btn {
+  background: #fee2e2;
+  border: none;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: red;
+}
