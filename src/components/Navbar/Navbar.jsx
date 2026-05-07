@@ -1,4 +1,5 @@
 import React, { useState,useRef,useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import './Navbar.css'
 
 const PRIMARY = [
@@ -21,15 +22,17 @@ const SECONDARY = [
 
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [activePage, setActivePage] = React.useState("home");
   const [moreOpen,setMoreOpen] = useState(false);
-  const [darkMode,setDarkMode] = useState('false');
+  const [darkMode,setDarkMode] = useState(false);
   const dropdownRef = useRef(null);
 
   // const displayFarmerName = profile?.name?.split(' ')[0] || user?.displayName?.split(' ')[0] || 'Profile';
   const nav = (page) => {
     setActivePage(page);
     setMoreOpen(false);
+    navigate(`/${page}`)
   };
   const isSecondaryActive = SECONDARY.some(p => p.id === activePage);
   
@@ -56,12 +59,9 @@ const Navbar = () => {
             {/* DESKTOP NAV */}
             <div className='nav-links'>
                 {PRIMARY.map((p)=>(
-                    <button
-                    key={p.id}
-                    onClick={()=>nav(p.id)}
-                    className={`nav-btn${activePage===p.id ? "active": ""}`}
-                    >
-                    {p.icon}{p.label}
+                    <button key={p.id} onClick={()=>nav(p.id)} 
+                      className={`nav-btn ${activePage===p.id ? "active": ""}`}>
+                      {p.icon}{p.label}
                     </button>
                 ))}
 
